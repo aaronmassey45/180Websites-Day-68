@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Emergency Off | 180 Websites</title>
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/font-awesome.css">
+  <link rel="stylesheet" href="css/main.css">
+  <script src="js/jquery.js" charset="utf-8"></script>
+  <script src="js/bootstrap.js" charset="utf-8"></script>
+</head>
+
+<body>
+  <header>
+    <nav class="navbar navbar-inverse">
+      <div class="container">
+        <div class="navbar-header">
+          <button class="navbar-toggle btn btn-info" data-toggle="collapse" data-target="#myNavbar">
+                Menu <i class="fa fa-bars" aria-hidden="true"></i>
+              </button>
+          <a class="navbar-brand" href="#">Emergency Off</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="http://aaronmassey.pro/">Home</a></li>
+            <li><a href="https://medium.com/@aaronmassey45">Blog</a></li>
+            <li><a href="https://github.com/aaronmassey45">Github</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container text-center">
+    <h1>In Case of Emergency</h1>
+    <h3>Hit This Button</h3>
+    <button class="round-button" data-toggle="modal" data-target="#modal">OFF</button>
+  </main>
+
+  <!-- Shutdown modal -->
+  <div id="modal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header"></div>
+        <div class="modal-body text-center">
+          <p>Emergency Shut Down Mode</p>
+          <p>Stand By</p>
+          <div class="progress">
+            <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+<script type="text/javascript">
+  $(document).ready(() => {
+    let current_progress = 0;
+    $('#modal').on('show.bs.modal', () => {
+      let interval = setInterval(() => {
+        current_progress++;
+        $('.progress-bar').css('width', current_progress + '%').attr('aria-valuenow', current_progress).text(`${current_progress}%`);
+        if (current_progress >= 100) {
+          clearInterval(interval);
+          $('.modal-body').text('Shutting Down...')
+          setTimeout(function() {
+            $('#modal').fadeToggle(500, () => {
+              $('#modal').fadeToggle(500, () => {
+                $('#modal').fadeToggle(500, () => {
+                  $('#modal').fadeToggle(500, () => {
+                    $('body').html('').css('background', 'black')
+                  });
+                });
+              });
+            });
+          }, 1000)
+        }
+      }, 100);
+    })
+  })
+</script>
+
+</html>
